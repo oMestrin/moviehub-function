@@ -85,7 +85,7 @@ Abra `docs/asyncapi.yaml` no [AsyncAPI Studio](https://studio.asyncapi.com/) (bo
 
 ## Grupo
 
-PJBL de Arquitetura de Soluções com Cloud — PUCPR, prof. Manoel Valerio da Silveira Neto.
+PJBL de Arquitetura e Soluções Cloud — PUCPR, prof. Manoel Valerio da Silveira Neto.
 
 - Brayan Calisto dos Santos
 - Caio Gabriel Silva
