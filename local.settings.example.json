@@ -1,0 +1,14 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "EventsStorage": "UseDevelopmentStorage=true",
+    "EVENTS_QUEUE_NAME": "avaliacoes-eventos",
+    "MOVIES_SERVICE_URL": "http://localhost:3001",
+    "REVIEWS_SERVICE_URL": "http://localhost:3002"
+  },
+  "Host": {
+    "CORS": "*"
+  }
+}

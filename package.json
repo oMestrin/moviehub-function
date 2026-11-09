@@ -1,0 +1,24 @@
+{
+  "name": "moviehub-function",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MovieHub — Azure Function (gatilho HTTP de insights + gatilho de fila de eventos de avaliação), Clean Architecture + Vertical Slice",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "func start",
+    "test": "node --test --test-reporter=spec \"test/**/*.test.js\"",
+    "test:unit": "node --test --test-reporter=spec \"test/unit/*.test.js\" \"test/api/*.test.js\"",
+    "test:arch": "node --test --test-reporter=spec \"test/architecture/*.test.js\""
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.17.0"
+  },
+  "devDependencies": {
+    "archunit": "^2.5.4",
+    "typescript": "^5.9.3"
+  }
+}

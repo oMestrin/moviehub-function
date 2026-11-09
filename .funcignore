@@ -1,0 +1,11 @@
+.git*
+.github
+.vscode
+local.settings.json
+local.settings.example.json
+test
+docs
+tsconfig.json
+Dockerfile
+.dockerignore
+*.md
