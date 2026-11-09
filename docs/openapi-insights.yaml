@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: MovieHub — Azure Function (gatilho HTTP)
+  version: 1.0.0
+  description: Calcula os insights do catálogo. Chamado pelo BFF em GET /aggregated-data.
+servers:
+  - url: https://{functionApp}.azurewebsites.net/api
+    variables:
+      functionApp:
+        default: moviehub-function
+security:
+  - functionKey: []
+paths:
+  /insights:
+    post:
+      summary: Calcula ranking, classificação e médias por gênero
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [movies]
+              properties:
+                movies:
+                  type: array
+                  items:
+                    type: object
+                    required: [id, title, genre, rating]
+                    properties:
+                      id: { type: string }
+                      title: { type: string }
+                      genre: { type: string }
+                      rating: { type: number, minimum: 0, maximum: 10 }
+                      membersRating:
+                        type: object
+                        properties:
+                          average: { type: number, nullable: true }
+                          count: { type: integer, minimum: 0 }
+      responses:
+        "200":
+          description: Insights
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  generatedAt: { type: string, format: date-time }
+                  totalMovies: { type: integer }
+                  totalReviews: { type: integer }
+                  averageCriticsRating: { type: number, nullable: true }
+                  averageMembersRating: { type: number, nullable: true }
+                  topRated: { type: array, items: { $ref: "#/components/schemas/Classification" } }
+                  byGenre:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        genre: { type: string }
+                        movies: { type: integer }
+                        averageScore: { type: number }
+                  classifications: { type: array, items: { $ref: "#/components/schemas/Classification" } }
+        "400":
+          description: Corpo inválido
+        "401":
+          description: Chave de função ausente ou inválida
+components:
+  securitySchemes:
+    functionKey:
+      type: apiKey
+      in: header
+      name: x-functions-key
+  schemas:
+    Classification:
+      type: object
+      properties:
+        movieId: { type: string }
+        title: { type: string }
+        genre: { type: string }
+        score: { type: number, description: "Média bayesiana: (crítica × 3 + média dos membros × qtd) / (3 + qtd)" }
+        label: { type: string, enum: [Aclamado, Muito bom, Bom, Mediano, Fraco] }
